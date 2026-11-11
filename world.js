@@ -2,9 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputElement = byId('country');
   const searchButton = byId("lookup");
   const divElement = byId("result");
-  //console.log(searchButton);
+  
   searchButton.addEventListener('click', () => {
-    //displayHeroesInDiv(divElement, inputElement.value);
     countrySearch(divElement, inputElement.value);
   });
 })

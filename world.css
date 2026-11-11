@@ -1,1 +1,34 @@
 /* Add your own styles */
+#country{
+  padding:4px;
+}
+#country:hover {
+  background-color:lightgrey;
+}
+#lookup {
+  padding:4px;
+  
+}
+#lookup:hover {
+  background-color:blue
+}
+
+
+
+#result {
+  margin-top:15px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: lightblue;
+}
