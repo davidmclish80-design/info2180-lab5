@@ -8,22 +8,42 @@ $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4",
 $username, $password);
 
 $search = $_GET["country"] ?? "";
+$lookup = $_GET["lookup"] ?? "";
 
-// $conn->query("SELECT * FROM countries");
-if($search){
-  $stmt = $conn -> prepare("select * from countries where name like :search");
+if(!$lookup){
+  if($search){
+    $stmt = $conn -> prepare("select * from countries where name like :search");
+    $stmt -> execute([
+      "search" => "%$search%"
+    ]);
+  }
+  else {
+    $stmt = $conn->query("select * from countries");
+  }
+
+
+  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  sendQueryResult($results);
+
+}
+else {
+  $stmt = $conn->prepare("select * from cities join countries on countries.code = cities.country_code where countries.name like :search" );
+  // echo $lookup;
   $stmt -> execute([
     "search" => "%$search%"
   ]);
-}
-else {
-  $stmt = $conn->query("select * from countries");
+  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  // print_r($results);
+  sendCountryCities($results);
 }
 
+// $conn->query("SELECT * FROM countries");
 
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
+
+
+
 
 <?php
   function sendQueryResult($array){
@@ -46,9 +66,31 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php endforeach; ?>
     </tbody>
   </table>
-<?php } 
-  sendQueryResult($results);
+<?php } ?>
+
+
+
+<?php
+  function sendCountryCities($array){
 ?>
-
-
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th> 
+          <th>District</th> 
+          <th>Population</th> 
+        </tr>
+      </thead>
+      <tbody>
+        
+<?php foreach($array as $row): ?>
+    <tr>
+      <td><?=$row["name"]?></td>
+      <td><?=$row["district"]?></td>
+      <td><?=$row["population"]?></td>  
+    </tr>
+<?php endforeach; ?>
+    </tbody>
+  </table>
+<?php } ?>
 

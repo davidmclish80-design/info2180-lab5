@@ -1,15 +1,27 @@
 /* Add your own styles */
+body {
+  font-size:18px;
+  font-family: 
+  Arial, san-serif;
+
+  background-color:aliceblue;
+}
+h1 {
+  text-align:center;
+}
+
+
 #country{
   padding:4px;
 }
 #country:hover {
   background-color:lightgrey;
 }
-#lookup {
+#lookup, #lookupCities {
   padding:4px;
   
 }
-#lookup:hover {
+#lookup:hover, #lookupCities:hover {
   background-color:blue
 }
 
